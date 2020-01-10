@@ -53,8 +53,8 @@ main() {
             fi
         fi
         # Install powerlevel9k
-        if ! [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel9k ]; then
-            git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k ]; then
+            git clone https://github.com/bhilburn/powerlevel9k ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k
         fi
         # Install zsh-autosuggestions
         if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
