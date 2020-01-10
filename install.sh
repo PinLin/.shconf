@@ -2,7 +2,7 @@
 
 REPO_URL="https://github.com/PinLin/.shconf"
 REPO_NAME=".shconf"
-REPO_VERSION="v3.1"
+REPO_VERSION="master"
 
 # Ask for question
 askQuestion() {
@@ -20,10 +20,10 @@ askQuestion() {
 }
 
 main() {
-    # Check git
+    # Exit if git was not installed
     if ! command -v git >/dev/null 2>&1; then
-        echo "This installer uses git to clone the configs to localhost."
-        return -1
+        echo "You must install git before using the installer."
+        return $(false)
     fi
 
     # Remove old one
