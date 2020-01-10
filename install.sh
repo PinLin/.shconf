@@ -2,7 +2,7 @@
 
 REPO_URL="https://github.com/PinLin/.shconf"
 REPO_NAME=".shconf"
-REPO_VERSION="master"
+INSTALL_VERSION=${INSTALL_VERSION:-"master"}
 
 # Ask for question
 askQuestion() {
@@ -38,7 +38,7 @@ main() {
         return 1
     fi
     cd $HOME/$REPO_NAME
-    git checkout $REPO_VERSION
+    git checkout $INSTALL_VERSION
 
     # Ask for applying configs
     todo=''
@@ -98,7 +98,7 @@ main() {
 
     # Finished
     echo
-    echo Done! $REPO_NAME was installed.
+    echo Done! $REPO_NAME:$INSTALL_VERSION was installed.
 }
 
 main
