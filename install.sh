@@ -4,62 +4,6 @@ REPO_URL="https://github.com/PinLin/.shconf"
 REPO_NAME=".shconf"
 REPO_VERSION="v3.1"
 
-# Install application
-makeInstall() {
-    # Check counts of arguments
-    if [ $# -lt 1 ]; then
-        return -1
-    fi
-
-    # Judge which is the package manager we used
-    kernel=$(uname -s)
-    if [ "$kernel" = "Darwin" ]; then
-        if command -v brew >/dev/null 2>&1; then
-            # macOS with brew
-            brew install $1
-            return $?
-        else
-            echo "You need to install Homebrew on your macOS before runing this script."
-            echo See this: https://brew.sh
-            return 87
-        fi
-
-    elif [ "$kernel" = "FreeBSD" ]; then
-        if command -v pkg >/dev/null 2>&1; then
-            # FreeBSD with pkg
-            sudo pkg install -y $1
-            return $?
-        else
-            echo "You need to install PKGNG on your FreeBSD before runing this script."
-            echo See this: https://wiki.freebsd.org/pkgng
-            return 87
-        fi
-
-    elif [ "$kernel" = "Linux" ]; then
-        if command -v apt-get >/dev/null 2>&1; then
-            # Debian/Ubuntu with apt-get
-            sudo apt-get install -y $1
-            return $?
-        elif command -v dnf >/dev/null 2>&1; then
-            # Fedora/CentOS with dnf
-            sudo dnf install -y $1
-            return $?
-        elif command -v yum >/dev/null 2>&1; then
-            # Fedora/CentOS with yum
-            sudo yum install -y $1
-            return $?
-        elif command -v ipkg >/dev/null 2>&1; then
-            # Embedded Device with ipkg
-            sudo ipkg install $1
-            return $?
-        elif command -v opkg >/dev/null 2>&1; then
-            # Embedded Device with opkg
-            sudo opkg install $1
-            return $?
-        fi
-    fi
-}
-
 # Ask for question
 askQuestion() {
     printf "$1 [y/N] "
@@ -79,9 +23,7 @@ main() {
     # Check git
     if ! command -v git >/dev/null 2>&1; then
         echo "This installer uses git to clone the configs to localhost."
-        if askQuestion "Do you want to install git?"; then
-            makeInstall git
-        fi
+        return -1
     fi
 
     # Remove old one
@@ -98,23 +40,16 @@ main() {
     cd $HOME/$REPO_NAME
     git checkout $REPO_VERSION
 
-    # Ask for installing
+    # Ask for applying configs
     todo=''
     apps='zsh vim tmux'
     for app in $apps; do
-        if ! command -v $app >/dev/null 2>&1; then
-            msg="Do you want to install and apply configs about $app?"
-        else
-            msg="Do you want to apply configs about $app?"
-        fi
+        msg="Do you want to apply configs about $app?"
 
         if askQuestion "$msg"; then
             todo="$todo $app"
         fi
     done
-    if [ "$todo" != "" ]; then
-        makeInstall $todo
-    fi
 
     # Apply configs about zsh
     if echo $todo | grep zsh >/dev/null; then
