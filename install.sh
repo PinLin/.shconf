@@ -1,7 +1,9 @@
 #!/bin/sh
 
-REPO_URL="https://github.com/PinLin/.shconf"
-REPO_NAME=".shconf"
+REPO_URL="https://github.com/PinLin/dotfiles"
+REPO_NAME="dotfiles"
+
+INSTALL_DIRECTORY=${INSTALL_DIRECTORY:-"$HOME/.$REPO_NAME"}
 INSTALL_VERSION=${INSTALL_VERSION:-"master"}
 
 # Ask for question
@@ -27,17 +29,17 @@ main() {
     fi
 
     # Remove old one
-    if [ -d $HOME/$REPO_NAME ]; then
-        rm -rf $HOME/$REPO_NAME
+    if [ -d $INSTALL_DIRECTORY ]; then
+        rm -rf $INSTALL_DIRECTORY
     fi
 
     # Clone repo to local
-    git clone $REPO_URL $HOME/$REPO_NAME
+    git clone $REPO_URL $INSTALL_DIRECTORY
     if [ $? != 0 ]; then
         echo "Failed to clone $REPO_NAME."
         return 1
     fi
-    cd $HOME/$REPO_NAME
+    cd $INSTALL_DIRECTORY
     git checkout $INSTALL_VERSION
 
     # Ask for applying configs
@@ -76,7 +78,7 @@ main() {
         if [ -f $HOME/.zshrc ]; then
             mv $HOME/.zshrc $HOME/.zshrc.bak
         fi
-        echo "source $HOME/$REPO_NAME/config/zsh/sample.zshrc" >>$HOME/.zshrc
+        echo "source $INSTALL_DIRECTORY/config/zsh/sample.zshrc" >>$HOME/.zshrc
         echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
     fi
 
@@ -85,7 +87,7 @@ main() {
         if [ -f $HOME/.vimrc ]; then
             mv $HOME/.vimrc $HOME/.vimrc.bak
         fi
-        echo "source $HOME/$REPO_NAME/config/vim/sample.vimrc" >>$HOME/.vimrc
+        echo "source $INSTALL_DIRECTORY/config/vim/sample.vimrc" >>$HOME/.vimrc
     fi
 
     # Apply configs about tmux
@@ -93,7 +95,7 @@ main() {
         if [ -f $HOME/.tmux.conf ]; then
             mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
         fi
-        echo "source $HOME/$REPO_NAME/config/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
+        echo "source $INSTALL_DIRECTORY/config/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
     fi
 
     # Finished
