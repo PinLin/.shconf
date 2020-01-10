@@ -62,44 +62,24 @@ makeInstall() {
 
 # Ask for question
 askQuestion() {
-    # Check counts of arguments
-    if [ $# -lt 2 ]; then
-        return -1
-    fi
+    printf "$1 [y/N] "
 
-    # Ask
-    if [ "$2" = "Yn" ]; then
-        # Display question and default yes
-        printf "$1 [Y/n] "
-        read ans
-        case $ans in
-        [Nn*])
-            return 1
-            ;;
-        *)
-            return 0
-            ;;
-        esac
-    else
-        # Display question and default no
-        printf "$1 [y/N] "
-        read ans
-        case $ans in
-        [Yy*])
-            return 0
-            ;;
-        *)
-            return 1
-            ;;
-        esac
-    fi
+    read ans
+    case $ans in
+    [Yy*])
+        return $(true)
+        ;;
+    *)
+        return $(false)
+        ;;
+    esac
 }
 
 main() {
     # Check git
     if ! command -v git >/dev/null 2>&1; then
         echo "This installer uses git to clone the configs to localhost."
-        if askQuestion "Do you want to install git?" "Yn"; then
+        if askQuestion "Do you want to install git?"; then
             makeInstall git
         fi
     fi
@@ -128,7 +108,7 @@ main() {
             msg="Do you want to apply configs about $app?"
         fi
 
-        if askQuestion "$msg" "Yn"; then
+        if askQuestion "$msg"; then
             todo="$todo $app"
         fi
     done
