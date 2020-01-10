@@ -1,25 +1,25 @@
-# .shconf
+# dotfiles
 
-My shell configuration.
+My shell configuration files.
 
-## Target
+## Requiremnts
 
-+ `git` (for installer)
-+ `zsh`
-+ [`oh-my-zsh`](http://ohmyz.sh)
-+ `vim`
-+ `tmux`
+- `git`
+- `zsh`
+    - [`oh-my-zsh`](http://ohmyz.sh)
+- `vim`
+- `tmux`
 
 ## Install
 
-1. Install `.shconf`.
+1. Install requirements with your package manager or install-script.
+2. Apply dotfiles.
 
     ```sh
     # Install by `curl`
-    sh -c "$(curl -L https://raw.githubusercontent.com/PinLin/.shconf/v3.1/install.sh)"
-    
-    # Install by `wget`
-    sh -c "$(wget -O- https://raw.githubusercontent.com/PinLin/.shconf/v3.1/install.sh)"
-    ```
+    sh -c "$(curl -L https://raw.githubusercontent.com/PinLin/dotfiles/v3.1/install.sh)"
 
-2. Apply the [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) that needed by special character.
+    # Install by `wget`
+    sh -c "$(wget -O- https://raw.githubusercontent.com/PinLin/dotfiles/v3.1/install.sh)"
+    ```
+3. Apply the [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) that needed by special character.
