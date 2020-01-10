@@ -93,8 +93,10 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias l='ls -lh'
-alias ll='ls -alh'
 alias la='ls -a'
+alias ll='ls -alh'
+alias please='sudo'
+alias poke='touch'
 
 # powerlevel9k
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
