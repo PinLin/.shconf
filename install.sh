@@ -85,17 +85,17 @@ main() {
     fi
 
     # Remove old one
-    if [ -d ~/$REPO_NAME ]; then
-        rm -rf ~/$REPO_NAME
+    if [ -d $HOME/$REPO_NAME ]; then
+        rm -rf $HOME/$REPO_NAME
     fi
 
     # Clone repo to local
-    git clone $REPO_URL ~/$REPO_NAME
+    git clone $REPO_URL $HOME/$REPO_NAME
     if [ $? != 0 ]; then
         echo "Failed to clone $REPO_NAME."
         return 1
     fi
-    cd ~/$REPO_NAME
+    cd $HOME/$REPO_NAME
     git checkout $REPO_VERSION
 
     # Ask for installing
@@ -119,7 +119,7 @@ main() {
     # Apply configs about zsh
     if echo $todo | grep zsh >/dev/null; then
         # Require oh-my-zsh
-        if ! [ -d ~/.oh-my-zsh ]; then
+        if ! [ -d $HOME/.oh-my-zsh ]; then
             if command -v curl >/dev/null 2>&1; then
                 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
             else
@@ -127,38 +127,38 @@ main() {
             fi
         fi
         # Install powerlevel9k
-        if ! [ -d ~/.oh-my-zsh/custom/themes/powerlevel9k ]; then
-            git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+        if ! [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel9k ]; then
+            git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
         fi
         # Install zsh-autosuggestions
-        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-            git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+            git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
         fi
         # Install zsh-syntax-highlighting
-        if ! [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
-            git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         fi
-        if [ -f ~/.zshrc ]; then
-            mv ~/.zshrc ~/.zshrc.bak
+        if [ -f $HOME/.zshrc ]; then
+            mv $HOME/.zshrc $HOME/.zshrc.bak
         fi
-        echo "source ~/$REPO_NAME/config/zsh/sample.zshrc" >>~/.zshrc
-        echo "DEFAULT_USER=$USER" >>~/.zshrc
+        echo "source $HOME/$REPO_NAME/config/zsh/sample.zshrc" >>$HOME/.zshrc
+        echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
     fi
 
     # Apply configs about vim
     if echo $todo | grep vim >/dev/null; then
-        if [ -f ~/.vimrc ]; then
-            mv ~/.vimrc ~/.vimrc.bak
+        if [ -f $HOME/.vimrc ]; then
+            mv $HOME/.vimrc $HOME/.vimrc.bak
         fi
-        echo "source ~/$REPO_NAME/config/vim/sample.vimrc" >>~/.vimrc
+        echo "source $HOME/$REPO_NAME/config/vim/sample.vimrc" >>$HOME/.vimrc
     fi
 
     # Apply configs about tmux
     if echo $todo | grep tmux >/dev/null; then
-        if [ -f ~/.tmux.conf ]; then
-            mv ~/.tmux.conf ~/.tmux.conf.bak
+        if [ -f $HOME/.tmux.conf ]; then
+            mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
         fi
-        echo "source ~/$REPO_NAME/config/tmux/sample.tmux.conf" >>~/.tmux.conf
+        echo "source $HOME/$REPO_NAME/config/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
     fi
 
     # Finished
