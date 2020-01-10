@@ -11,7 +11,7 @@ makeInstall() {
     then
         return -1
     fi
-    
+
     # Judge which is the package manager we used
     kernel=$(uname -s)
     if [ "$kernel" = "Darwin" ]
@@ -26,7 +26,7 @@ makeInstall() {
             echo See this: https://brew.sh
             return 87
         fi
-        
+
     elif [ "$kernel" = "FreeBSD" ]
     then
         if command -v pkg > /dev/null 2>&1
@@ -39,7 +39,7 @@ makeInstall() {
             echo See this: https://wiki.freebsd.org/pkgng
             return 87
         fi
-        
+
     elif [ "$kernel" = "Linux" ]
     then
         if command -v apt-get > /dev/null 2>&1
@@ -68,7 +68,7 @@ makeInstall() {
             sudo opkg install $1
             return $?
         fi
-    fi 
+    fi
 }
 
 
@@ -97,10 +97,10 @@ askQuestion() {
         # Display question and default no
         printf "$1 [y/N] "; read ans
         case $ans in
-            [Yy*]) 
+            [Yy*])
                 return 0
                 ;;
-            *) 
+            *)
                 return 1
                 ;;
         esac
@@ -124,7 +124,7 @@ main() {
     then
         rm -rf ~/$REPO_NAME
     fi
-    
+
     # Clone repo to local
     git clone $REPO_URL ~/$REPO_NAME
     if [ $? != 0 ]
@@ -156,7 +156,7 @@ main() {
     then
         makeInstall $todo
     fi
-    
+
     # Apply configs about zsh
     if echo $todo | grep zsh > /dev/null
     then
@@ -192,7 +192,7 @@ main() {
         echo "source ~/$REPO_NAME/config/zsh/sample.zshrc" >> ~/.zshrc
         echo "DEFAULT_USER=$USER" >> ~/.zshrc
     fi
-    
+
     # Apply configs about vim
     if echo $todo | grep vim > /dev/null
     then
@@ -202,7 +202,7 @@ main() {
         fi
         echo "source ~/$REPO_NAME/config/vim/sample.vimrc" >> ~/.vimrc
     fi
-    
+
     # Apply configs about tmux
     if echo $todo | grep tmux > /dev/null
     then
@@ -212,7 +212,7 @@ main() {
         fi
         echo "source ~/$REPO_NAME/config/tmux/sample.tmux.conf" >> ~/.tmux.conf
     fi
-    
+
     # Finished
     echo
     echo Done! $REPO_NAME was installed.
