@@ -6,8 +6,8 @@ REPO_NAME="dotfiles"
 INSTALL_DIRECTORY=${INSTALL_DIRECTORY:-"$HOME/.$REPO_NAME"}
 INSTALL_VERSION=${INSTALL_VERSION:-"master"}
 
-# Ask for question
-askQuestion() {
+
+askquestion() {
     printf "$1 [y/N] "
 
     read ans
@@ -42,19 +42,8 @@ main() {
     cd $INSTALL_DIRECTORY
     git checkout $INSTALL_VERSION
 
-    # Ask for applying configs
-    todo=''
-    apps='zsh vim tmux'
-    for app in $apps; do
-        msg="Do you want to apply configs about $app?"
-
-        if askQuestion "$msg"; then
-            todo="$todo $app"
-        fi
-    done
-
-    # Apply configs about zsh
-    if echo $todo | grep zsh >/dev/null; then
+    # Apply the config of zsh
+    if askquestion "Do you want to apply the config of zsh?"; then
         # Require oh-my-zsh
         if ! [ -d $HOME/.oh-my-zsh ]; then
             if command -v curl >/dev/null 2>&1; then
@@ -82,16 +71,16 @@ main() {
         echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
     fi
 
-    # Apply configs about vim
-    if echo $todo | grep vim >/dev/null; then
+    # Apply the config of vim
+    if askquestion "Do you want to apply the config of vim?"; then
         if [ -f $HOME/.vimrc ]; then
             mv $HOME/.vimrc $HOME/.vimrc.bak
         fi
         echo "source $INSTALL_DIRECTORY/config/vim/sample.vimrc" >>$HOME/.vimrc
     fi
 
-    # Apply configs about tmux
-    if echo $todo | grep tmux >/dev/null; then
+    # Apply the config of tmux
+    if askquestion "Do you want to apply the config of tmux?"; then
         if [ -f $HOME/.tmux.conf ]; then
             mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
         fi
