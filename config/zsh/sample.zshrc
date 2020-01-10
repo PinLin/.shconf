@@ -98,6 +98,14 @@ alias ll='ls -alh'
 alias please='sudo'
 alias poke='touch'
 
+# functions
+getpass() {
+    echo -n "Password: " > /dev/stderr
+    read -s
+    echo $REPLY
+    echo > /dev/stderr
+}
+
 # powerlevel9k
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs status time)
