@@ -70,7 +70,7 @@ main() {
         if [ -f $HOME/.zshrc ]; then
             mv $HOME/.zshrc $HOME/.zshrc.bak
         fi
-        echo "source $INSTALL_DIRECTORY/config/zsh/sample.zshrc" >>$HOME/.zshrc
+        echo "source $INSTALL_DIRECTORY/zsh/sample.zshrc" >>$HOME/.zshrc
         echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
     fi
 
@@ -79,7 +79,7 @@ main() {
         if [ -f $HOME/.vimrc ]; then
             mv $HOME/.vimrc $HOME/.vimrc.bak
         fi
-        echo "source $INSTALL_DIRECTORY/config/vim/sample.vimrc" >>$HOME/.vimrc
+        echo "source $INSTALL_DIRECTORY/vim/sample.vimrc" >>$HOME/.vimrc
     fi
 
     # Apply the config of tmux
@@ -87,7 +87,7 @@ main() {
         if [ -f $HOME/.tmux.conf ]; then
             mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
         fi
-        echo "source $INSTALL_DIRECTORY/config/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
+        echo "source $INSTALL_DIRECTORY/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
     fi
 
     # Finished
