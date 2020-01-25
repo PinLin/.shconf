@@ -6,7 +6,6 @@ REPO_NAME="dotfiles"
 INSTALL_DIRECTORY=${INSTALL_DIRECTORY:-"$HOME/.$REPO_NAME"}
 INSTALL_VERSION=${INSTALL_VERSION:-"master"}
 
-
 askquestion() {
     printf "$1 [y/N] "
 
@@ -21,8 +20,71 @@ askquestion() {
     esac
 }
 
+applyzsh() {
+    # Check zsh
+    if ! command -v zsh >/dev/null 2>&1; then
+        echo "zsh is not installed."
+        return $(false)
+    fi
+
+    # Install oh-my-zsh
+    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} ]; then
+        export RUNZSH=no
+
+        if command -v curl >/dev/null 2>&1; then
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        else
+            sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        fi
+    fi
+    # Install powerlevel9k
+    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k ]; then
+        git clone https://github.com/bhilburn/powerlevel9k ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k
+    fi
+    # Install zsh-autosuggestions
+    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    fi
+    # Install zsh-syntax-highlighting
+    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    fi
+
+    if [ -f $HOME/.zshrc ]; then
+        mv $HOME/.zshrc $HOME/.zshrc.bak
+    fi
+    echo "source $INSTALL_DIRECTORY/zsh/sample.zshrc" >>$HOME/.zshrc
+    echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
+}
+
+applyvim() {
+    # Check vim
+    if ! command -v vim >/dev/null 2>&1; then
+        echo "vim is not installed."
+        return $(false)
+    fi
+
+    if [ -f $HOME/.vimrc ]; then
+        mv $HOME/.vimrc $HOME/.vimrc.bak
+    fi
+    echo "source $INSTALL_DIRECTORY/vim/sample.vimrc" >>$HOME/.vimrc
+}
+
+applytmux() {
+    # Check tmux
+    if ! command -v tmux >/dev/null 2>&1; then
+        echo "tmux is not installed."
+        return $(false)
+    fi
+
+    if [ -f $HOME/.tmux.conf ]; then
+        mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
+    fi
+    echo "source $INSTALL_DIRECTORY/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
+}
+
 main() {
-    # Exit if git was not installed
+    # Check Git
     if ! command -v git >/dev/null 2>&1; then
         echo "You must install git before using the installer."
         return $(false)
@@ -44,50 +106,17 @@ main() {
 
     # Apply the config of zsh
     if askquestion "Do you want to apply the config of zsh?"; then
-        # Install oh-my-zsh
-        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} ]; then
-            export RUNZSH=no
-
-            if command -v curl >/dev/null 2>&1; then
-                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            else
-                sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            fi
-        fi
-        # Install powerlevel9k
-        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k ]; then
-            git clone https://github.com/bhilburn/powerlevel9k ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel9k
-        fi
-        # Install zsh-autosuggestions
-        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-            git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        fi
-        # Install zsh-syntax-highlighting
-        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
-            git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        fi
-
-        if [ -f $HOME/.zshrc ]; then
-            mv $HOME/.zshrc $HOME/.zshrc.bak
-        fi
-        echo "source $INSTALL_DIRECTORY/zsh/sample.zshrc" >>$HOME/.zshrc
-        echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
+        applyzsh
     fi
 
     # Apply the config of vim
     if askquestion "Do you want to apply the config of vim?"; then
-        if [ -f $HOME/.vimrc ]; then
-            mv $HOME/.vimrc $HOME/.vimrc.bak
-        fi
-        echo "source $INSTALL_DIRECTORY/vim/sample.vimrc" >>$HOME/.vimrc
+        applyvim
     fi
 
     # Apply the config of tmux
     if askquestion "Do you want to apply the config of tmux?"; then
-        if [ -f $HOME/.tmux.conf ]; then
-            mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
-        fi
-        echo "source $INSTALL_DIRECTORY/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
+        applytmux
     fi
 
     # Finished
