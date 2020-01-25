@@ -44,12 +44,14 @@ main() {
 
     # Apply the config of zsh
     if askquestion "Do you want to apply the config of zsh?"; then
-        # Require oh-my-zsh
-        if ! [ -d $HOME/.oh-my-zsh ]; then
+        # Install oh-my-zsh
+        if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} ]; then
+            export RUNZSH=no
+
             if command -v curl >/dev/null 2>&1; then
-                sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
+                sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
             else
-                sh -c "$(wget -qO- https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's/env zsh -l//g')"
+                sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
             fi
         fi
         # Install powerlevel9k
@@ -64,6 +66,7 @@ main() {
         if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
             git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         fi
+
         if [ -f $HOME/.zshrc ]; then
             mv $HOME/.zshrc $HOME/.zshrc.bak
         fi
