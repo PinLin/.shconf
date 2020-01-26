@@ -53,7 +53,7 @@ applyzsh() {
     if [ -f $HOME/.zshrc ]; then
         mv $HOME/.zshrc $HOME/.zshrc.bak
     fi
-    echo "source $INSTALL_DIRECTORY/zsh/sample.zshrc" >>$HOME/.zshrc
+    echo "source $INSTALL_DIRECTORY/zsh/.zshrc" >>$HOME/.zshrc
     echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
 }
 
@@ -67,7 +67,7 @@ applyvim() {
     if [ -f $HOME/.vimrc ]; then
         mv $HOME/.vimrc $HOME/.vimrc.bak
     fi
-    echo "source $INSTALL_DIRECTORY/vim/sample.vimrc" >>$HOME/.vimrc
+    echo "source $INSTALL_DIRECTORY/vim/.vimrc" >>$HOME/.vimrc
 }
 
 applytmux() {
@@ -80,7 +80,7 @@ applytmux() {
     if [ -f $HOME/.tmux.conf ]; then
         mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
     fi
-    echo "source $INSTALL_DIRECTORY/tmux/sample.tmux.conf" >>$HOME/.tmux.conf
+    echo "source $INSTALL_DIRECTORY/tmux/.tmux.conf" >>$HOME/.tmux.conf
 }
 
 main() {
