@@ -8,9 +8,13 @@ My shell configuration files.
 
 ## Targets
 
-- `zsh`
-- `vim`
-- `tmux`
+|                 `zsh`                 |                 `vim`                 |
+| :-----------------------------------: | :-----------------------------------: |
+| ![zsh](https://imgur.com/XaM1ya5.png) | ![vim](https://imgur.com/82FL3zs.png) |
+
+|                 `tmux`                 |
+| :------------------------------------: |
+| ![tmux](https://imgur.com/KsNbL4U.png) |
 
 ## Install
 
