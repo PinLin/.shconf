@@ -122,7 +122,7 @@ main() {
 
     # Finished
     echo
-    echo Done! $REPO_NAME:$INSTALL_VERSION was installed.
+    echo "Done! $REPO_NAME:$INSTALL_VERSION is ready to go! Restart your shell to use it."
 }
 
 main
