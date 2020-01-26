@@ -1,0 +1,5 @@
+alias l='ls -lh'
+alias la='ls -a'
+alias ll='ls -alh'
+alias please='sudo'
+alias poke='touch'

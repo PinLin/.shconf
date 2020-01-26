@@ -13,8 +13,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-POWERLEVEL9K_MODE='nerdfont-complete'
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -91,38 +89,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# alias
-alias l='ls -lh'
-alias la='ls -a'
-alias ll='ls -alh'
-alias please='sudo'
-alias poke='touch'
-
-# functions
-getpass() {
-    echo -n "Password: " > /dev/stderr
-    read -s
-    echo $REPLY
-    echo > /dev/stderr
-}
-
-# powerlevel9k
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon user host dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs status command_execution_time)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%(?:%{$fg_bold[green]%}\u279c :%{$fg_bold[red]%}\u279c )"
-
-POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='black'
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='yellow'
-
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=3
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND='white'
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='black'
-
-POWERLEVEL9K_OS_ICON_BACKGROUND='white'
-POWERLEVEL9K_OS_ICON_FOREGROUND='black'
-
 # zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+
+source $DOTFILES/zsh/alias.zsh
+source $DOTFILES/zsh/function.zsh
+source $DOTFILES/zsh/p9k.zsh
