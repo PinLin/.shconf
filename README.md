@@ -23,9 +23,11 @@ My shell configuration files.
 
     ```sh
     # Install by `curl`
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/PinLin/dotfiles/master/install.sh)"
+    export INSTALL_VERSION=next
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/PinLin/dotfiles/next/install.sh)"
 
     # Install by `wget`
-    sh -c "$(wget -O- https://raw.githubusercontent.com/PinLin/dotfiles/master/install.sh)"
+    export INSTALL_VERSION=next
+    sh -c "$(wget -O- https://raw.githubusercontent.com/PinLin/dotfiles/next/install.sh)"
     ```
 3. Apply the [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) that needed by special character.
