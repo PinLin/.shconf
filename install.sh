@@ -27,34 +27,23 @@ applyzsh() {
         return $(false)
     fi
 
-    # Install oh-my-zsh
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} ]; then
-        export RUNZSH=no
-
+    # Install zim
+    if ! [ -d ${ZIM_HOME:-$HOME/.zim} ]; then
         if command -v curl >/dev/null 2>&1; then
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            zsh -c "$(curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh)"
         else
-            sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            zsh -c "$(wget -nv -O - https://raw.githubusercontent.com/zimfw/install/master/install.zsh)"
         fi
     fi
     # Install powerlevel10k
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]; then
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    if ! grep "zmodule romkatv/powerlevel10k" $HOME/.zimrc; then
+        echo "zmodule romkatv/powerlevel10k" >>$HOME/.zimrc
     fi
-    # Install zsh-autosuggestions
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    fi
-    # Install zsh-syntax-highlighting
-    if ! [ -d ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ]; then
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    fi
+    zsh $HOME/.zim/zimfw.zsh install
 
-    if [ -f $HOME/.zshrc ]; then
-        mv $HOME/.zshrc $HOME/.zshrc.bak
-    fi
-    echo "export DOTFILES=$INSTALL_DIRECTORY" >>$HOME/.zshrc
-    echo "source $INSTALL_DIRECTORY/zsh/.zshrc" >>$HOME/.zshrc
+    echo "source $INSTALL_DIRECTORY/zsh/alias.zsh" >>$HOME/.zshrc
+    echo "source $INSTALL_DIRECTORY/zsh/function.zsh" >>$HOME/.zshrc
+    echo "source $INSTALL_DIRECTORY/zsh/p10k.zsh" >>$HOME/.zshrc
     echo "DEFAULT_USER=$USER" >>$HOME/.zshrc
 }
 
