@@ -10,11 +10,11 @@ My shell configuration files.
 
 |                 `zsh`                 |                 `vim`                 |
 | :-----------------------------------: | :-----------------------------------: |
-| ![zsh](https://imgur.com/XaM1ya5.png) | ![vim](https://imgur.com/82FL3zs.png) |
+| ![zsh](https://imgur.com/hZlqG8b.png) | ![vim](https://imgur.com/82FL3zs.png) |
 
 |                 `tmux`                 |
 | :------------------------------------: |
-| ![tmux](https://imgur.com/KsNbL4U.png) |
+| ![tmux](https://imgur.com/UkgPhAP.png) |
 
 ## Install
 
