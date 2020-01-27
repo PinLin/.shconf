@@ -94,4 +94,4 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
 source $DOTFILES/zsh/alias.zsh
 source $DOTFILES/zsh/function.zsh
-source $DOTFILES/zsh/p9k.zsh
+source $DOTFILES/zsh/p10k.zsh
