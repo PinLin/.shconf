@@ -3,6 +3,7 @@ set autochdir
 set backspace=2
 set encoding=utf-8
 set fileencodings=utf-8,utf-16,big5,gb2312,gbk,gb18030,euc-jp,euc-kr,latin1
+set mouse=a
 set nocompatible
 set t_Co=256
 set laststatus=2
@@ -31,7 +32,7 @@ function IsBinary()
         return "[Binary]"
     endif
     endfunction
-    
+
     function FileSize()
     let bytes = getfsize(expand("%:p"))
     if bytes <= 0
