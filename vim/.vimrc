@@ -47,3 +47,4 @@ function IsBinary()
     endif
 endfunction
 
+command W w !sudo tee %
