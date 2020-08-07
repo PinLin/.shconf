@@ -4,3 +4,8 @@ getpass() {
     echo $REPLY
     echo > /dev/stderr
 }
+
+update-dotfiles() {
+    cd $DOTFILES
+    git pull
+}
